@@ -1,0 +1,371 @@
+:root {
+  color-scheme: light;
+  --papel: #edf0f3;
+  --superficie: #ffffff;
+  --tinta: #14213d;
+  --tinta-suave: #566175;
+  --linha: #d5dbe3;
+  --alta: #0b7a52;
+  --baixa: #b83522;
+  --foco: #1f5fd1;
+  --laranja: #f28c28;
+  --raio: 10px;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  margin: 0;
+  background: var(--papel);
+  color: var(--tinta);
+  font-family:
+    "Schibsted Grotesk",
+    system-ui,
+    -apple-system,
+    "Segoe UI",
+    Roboto,
+    sans-serif;
+  font-size: 1rem;
+  line-height: 1.5;
+  font-variant-numeric: tabular-nums;
+}
+
+h1,
+h2,
+p {
+  margin: 0;
+}
+
+:focus-visible {
+  outline: 3px solid var(--foco);
+  outline-offset: 2px;
+}
+
+/* Topo */
+.topo {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 1rem;
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 2rem 1.25rem 1rem;
+}
+
+h1 {
+  color: var(--laranja);
+  font-size: clamp(2.25rem, 7vw, 3.75rem);
+  font-weight: 800;
+  line-height: 1;
+  letter-spacing: -0.03em;
+}
+
+.atualizacao {
+  margin-top: 0.5rem;
+  color: var(--tinta-suave);
+  font-size: 0.95rem;
+}
+
+/* Botões */
+.btn {
+  min-height: 44px;
+  padding: 0.5rem 1.1rem;
+  border: 2px solid var(--tinta);
+  border-radius: var(--raio);
+  background: var(--tinta);
+  color: var(--laranja);
+  font: inherit;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.btn:hover {
+  background: #22345f;
+}
+
+.btn:disabled {
+  opacity: 0.6;
+  cursor: wait;
+}
+
+.btn-claro {
+  background: transparent;
+  color: var(--tinta);
+}
+
+.btn-claro:hover {
+  background: #e3e8ee;
+}
+
+/* Layout */
+.layout {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 1rem;
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 0 1.25rem 2rem;
+  grid-template-areas:
+    "cotacoes"
+    "grafico"
+    "conversor";
+}
+
+.area-cotacoes {
+  grid-area: cotacoes;
+}
+.area-grafico {
+  grid-area: grafico;
+}
+.area-conversor {
+  grid-area: conversor;
+}
+
+@media (min-width: 1000px) {
+  .layout {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1.25fr);
+    grid-template-areas:
+      "cotacoes grafico"
+      "conversor grafico";
+    align-items: start;
+  }
+}
+
+/* min-width: 0 impede que o conteúdo estique o painel para fora da coluna */
+.painel {
+  min-width: 0;
+  padding: 1.25rem;
+  border: 1px solid var(--linha);
+  border-radius: var(--raio);
+  background: var(--superficie);
+}
+
+h2 {
+  color: var(--laranja);
+  font-size: 1.15rem;
+  font-weight: 700;
+}
+
+.dica {
+  margin-top: 0.25rem;
+  color: var(--tinta-suave);
+  font-size: 0.9rem;
+}
+
+/* Lista de cotações */
+.lista {
+  list-style: none;
+  margin: 1rem 0 0;
+  padding: 0;
+}
+
+.lista li {
+  min-width: 0;
+}
+
+.lista li + li {
+  border-top: 1px solid var(--linha);
+}
+
+.moeda {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: 0.15rem 1rem;
+  width: 100%;
+  min-width: 0;
+  padding: 0.9rem 0.5rem;
+  border: 0;
+  border-left: 4px solid transparent;
+  background: transparent;
+  color: inherit;
+  font: inherit;
+  text-align: left;
+  cursor: pointer;
+}
+
+.moeda:hover {
+  background: #f4f6f8;
+}
+
+.moeda[aria-pressed="true"] {
+  border-left-color: var(--tinta);
+  background: #f4f6f8;
+}
+
+.moeda-nome {
+  font-weight: 700;
+}
+
+.moeda-sigla {
+  color: var(--tinta-suave);
+  font-size: 0.85rem;
+}
+
+.moeda-valor {
+  grid-column: 2;
+  grid-row: 1;
+  min-width: 0;
+  color: var(--laranja);
+  font-size: clamp(1.3rem, 4.5vw, 1.75rem);
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  text-align: right;
+  overflow-wrap: anywhere;
+}
+
+.moeda-var {
+  grid-column: 2;
+  grid-row: 2;
+  font-size: 0.9rem;
+  font-weight: 700;
+  text-align: right;
+}
+
+.moeda-faixa {
+  grid-column: 1;
+  grid-row: 2;
+  min-width: 0;
+  color: var(--tinta-suave);
+  font-size: 0.85rem;
+}
+
+.sobe {
+  color: var(--alta);
+}
+.desce {
+  color: var(--baixa);
+}
+
+/* Aviso de valor desatualizado */
+.moeda-aviso {
+  grid-column: 1 / -1;
+  margin-top: 0.35rem;
+  padding: 0.35rem 0.6rem;
+  border-left: 3px solid var(--baixa);
+  background: #fbeeea;
+  color: #7a2214;
+  font-size: 0.85rem;
+}
+
+/* Gráfico */
+.grafico-topo {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+}
+
+.periodos {
+  display: flex;
+  gap: 0.35rem;
+}
+
+.periodo {
+  min-height: 40px;
+  padding: 0.3rem 0.8rem;
+  border: 1px solid var(--linha);
+  border-radius: 999px;
+  background: transparent;
+  color: var(--tinta);
+  font: inherit;
+  font-size: 0.9rem;
+  cursor: pointer;
+}
+
+.periodo[aria-pressed="true"] {
+  border-color: var(--tinta);
+  background: var(--tinta);
+  color: var(--laranja);
+}
+
+/* O Chart.js precisa de um pai com largura própria e position relative,
+   senão o gráfico pode crescer além da coluna. */
+.canvas-wrap {
+  position: relative;
+  width: 100%;
+  min-width: 0;
+  height: 300px;
+  margin-top: 1rem;
+  overflow: hidden;
+}
+
+.resumo {
+  margin-top: 0.75rem;
+  color: var(--tinta-suave);
+}
+
+/* Conversor */
+.conversor {
+  display: grid;
+  gap: 0.75rem;
+  margin-top: 1rem;
+}
+
+.campo {
+  display: grid;
+  gap: 0.25rem;
+  font-size: 0.9rem;
+  font-weight: 500;
+}
+
+.campo input,
+.campo select {
+  min-height: 44px;
+  padding: 0.5rem 0.75rem;
+  border: 1px solid var(--tinta-suave);
+  border-radius: var(--raio);
+  background: #fff;
+  color: var(--tinta);
+  font: inherit;
+  font-size: 1rem;
+}
+
+.resultado {
+  display: block;
+  margin-top: 1rem;
+  padding-top: 1rem;
+  border-top: 1px solid var(--linha);
+  color: var(--laranja);
+  font-size: clamp(1.3rem, 4.5vw, 1.75rem);
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  overflow-wrap: anywhere;
+}
+
+/* Erros e rodapé */
+.erro {
+  margin-top: 1rem;
+  padding: 0.75rem 1rem;
+  border-left: 4px solid var(--baixa);
+  background: #fbeeea;
+  color: #7a2214;
+}
+
+.rodape {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 0 1.25rem 2rem;
+  color: var(--tinta-suave);
+  font-size: 0.85rem;
+}
+
+.rodape a {
+  color: inherit;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation: none !important;
+    transition: none !important;
+  }
+}

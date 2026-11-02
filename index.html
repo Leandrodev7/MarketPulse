@@ -1,0 +1,147 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="color-scheme" content="light" />
+    <title>MarketPulse: dólar, euro e bitcoin em reais</title>
+    <meta
+      name="description"
+      content="MarketPulse, painel com cotações de dólar, euro e bitcoin em reais, gráfico de histórico e conversor de moedas."
+    />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Schibsted+Grotesk:wght@400;500;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <header class="topo">
+      <div>
+        <h1>MarketPulse</h1>
+        <p class="atualizacao" id="atualizacao" aria-live="polite">
+          Carregando valores...
+        </p>
+      </div>
+      <button id="btn-atualizar" class="btn" type="button">
+        Atualizar agora
+      </button>
+    </header>
+
+    <main class="layout">
+      <section class="painel area-cotacoes" aria-labelledby="t-cotacoes">
+        <h2 id="t-cotacoes">Valor de hoje em reais</h2>
+        <p class="dica">Toque em uma moeda para ver o histórico dela.</p>
+        <ul class="lista" id="lista"></ul>
+        <p class="erro" id="erro-cotacoes" role="alert" hidden></p>
+      </section>
+
+      <section class="painel area-grafico" aria-labelledby="t-grafico">
+        <div class="grafico-topo">
+          <h2 id="t-grafico">Histórico</h2>
+          <div class="periodos" role="group" aria-label="Período do gráfico">
+            <button
+              type="button"
+              class="periodo"
+              data-dias="7"
+              aria-pressed="false"
+            >
+              7 dias
+            </button>
+            <button
+              type="button"
+              class="periodo"
+              data-dias="30"
+              aria-pressed="true"
+            >
+              30 dias
+            </button>
+            <button
+              type="button"
+              class="periodo"
+              data-dias="90"
+              aria-pressed="false"
+            >
+              90 dias
+            </button>
+          </div>
+        </div>
+        <div class="canvas-wrap">
+          <canvas
+            id="grafico"
+            role="img"
+            aria-label="Gráfico com a evolução da cotação no período escolhido"
+          ></canvas>
+        </div>
+        <p class="resumo" id="resumo-grafico" aria-live="polite"></p>
+      </section>
+
+      <section class="painel area-conversor" aria-labelledby="t-conversor">
+        <h2 id="t-conversor">Conversor</h2>
+        <form id="form-conversor" class="conversor" autocomplete="off">
+          <label class="campo">
+            <span>Valor</span>
+            <input
+              id="valor"
+              type="number"
+              min="0"
+              step="any"
+              inputmode="decimal"
+              value="100"
+            />
+          </label>
+          <label class="campo">
+            <span>De</span>
+            <select id="de">
+              <option value="BRL" selected>Real (BRL)</option>
+              <option value="USD">Dólar (USD)</option>
+              <option value="EUR">Euro (EUR)</option>
+              <option value="BTC">Bitcoin (BTC)</option>
+            </select>
+          </label>
+          <button
+            id="inverter"
+            class="btn btn-claro"
+            type="button"
+            aria-label="Inverter moedas"
+          >
+            Inverter
+          </button>
+          <label class="campo">
+            <span>Para</span>
+            <select id="para">
+              <option value="BRL">Real (BRL)</option>
+              <option value="USD" selected>Dólar (USD)</option>
+              <option value="EUR">Euro (EUR)</option>
+              <option value="BTC">Bitcoin (BTC)</option>
+            </select>
+          </label>
+        </form>
+        <output class="resultado" id="resultado" for="valor de para"
+          >Aguardando cotações...</output
+        >
+      </section>
+    </main>
+
+    <footer class="rodape">
+      <p>
+        Dados da
+        <a
+          href="https://docs.awesomeapi.com.br/api-de-moedas"
+          target="_blank"
+          rel="noopener"
+          >AwesomeAPI</a
+        >. As cotações podem apresentar alguns minutos de atraso devido ao cache
+        da API. Os valores são informativos e podem diferir dos praticados por
+        bancos e casas de câmbio devido a IOF, spread e tarifas. Não constituem
+        recomendação de investimento.
+      </p>
+    </footer>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
+    <script src="script.js"></script>
+  </body>
+</html>
